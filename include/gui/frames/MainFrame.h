@@ -20,8 +20,12 @@ namespace YetAnotherNotepad {
         void CreateMenu();
         void BindEvents();
 
+
         void OnFileNew(wxCommandEvent& event);
         void OnFileOpen(wxCommandEvent& event);
+
+        void OnExit(wxCommandEvent& event);
+
     };
 
 }

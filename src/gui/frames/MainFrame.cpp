@@ -34,8 +34,12 @@ namespace YetAnotherNotepad {
         m_menuBar = new wxMenuBar();
 
         wxMenu* fileMenu = new wxMenu();
-        fileMenu->Append(wxID_NEW, "&New\tCtrl+N");
-        fileMenu->Append(wxID_OPEN, "&Open\tCtrl+O");
+        fileMenu->Append(wxID_NEW, L"&Новый\tCtrl+N");
+        fileMenu->Append(wxID_OPEN, L"&Открыть\tCtrl+O");
+
+        fileMenu->AppendSeparator();
+
+        fileMenu->Append(wxID_EXIT, L"&Выход\tAlt+F4");
 
         m_menuBar->Append(fileMenu, "&File");
         SetMenuBar(m_menuBar);
@@ -43,11 +47,23 @@ namespace YetAnotherNotepad {
 
     void MainFrame::BindEvents() {
         Bind(wxEVT_MENU, &MainFrame::OnFileNew, this, wxID_NEW);
-        Bind(wxEVT_MENU, [this](auto&) { Close(true); }, wxID_EXIT); // ???
+        Bind(wxEVT_MENU, &MainFrame::OnFileOpen, this, wxID_OPEN);
+        Bind(wxEVT_MENU, &MainFrame::OnExit, this, wxID_EXIT);
     }
 
     void MainFrame::OnFileNew(wxCommandEvent &event) {
+
+
+
         m_textCtrl->Clear();
         SetTitle("Test 123456");
+    }
+
+    void MainFrame::OnFileOpen(wxCommandEvent &event) {
+
+    }
+
+    void MainFrame::OnExit(wxCommandEvent &event) {
+        Close(true);
     }
 }
