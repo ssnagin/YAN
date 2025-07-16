@@ -7,11 +7,11 @@
 #include <wx/textctrl.h>
 
 
-namespace YetAnotherNotepad {
+namespace YetAnotherNotepad::GUI::Frames {
 
     class MainFrame : public wxFrame {
     public:
-        MainFrame(const wxString& title);
+        explicit MainFrame(const wxString& title);
     private:
         wxTextCtrl* m_textCtrl;
         wxMenuBar* m_menuBar;
@@ -20,9 +20,9 @@ namespace YetAnotherNotepad {
         void CreateMenu();
         void BindEvents();
 
-
         void OnFileNew(wxCommandEvent& event);
         void OnFileOpen(wxCommandEvent& event);
+        void OnFileSaveAs(wxCommandEvent& event);
 
         void OnExit(wxCommandEvent& event);
 

@@ -4,9 +4,16 @@
 
 #pragma once
 
+#include <wx/filedlg.h>
+#include <wx/file.h>
+#include <memory>
+
+
 #include "../../../include/gui/frames/MainFrame.h"
 
-namespace YetAnotherNotepad {
+#include "../../../include/files/FileInfo.h"
+
+namespace YetAnotherNotepad::GUI::Frames {
 
     MainFrame::MainFrame(const wxString &title)
         : wxFrame(nullptr, wxID_ANY, title) {
@@ -20,7 +27,10 @@ namespace YetAnotherNotepad {
     }
 
     void MainFrame::CreateControls() {
+
+
         wxPanel* panel = new wxPanel(this);
+
         m_textCtrl = new wxTextCtrl(panel, wxID_ANY, "", wxDefaultPosition, wxDefaultSize,
             wxTE_MULTILINE | wxTE_RICH | wxTE_DONTWRAP);
 
@@ -36,6 +46,7 @@ namespace YetAnotherNotepad {
         wxMenu* fileMenu = new wxMenu();
         fileMenu->Append(wxID_NEW, L"&Новый\tCtrl+N");
         fileMenu->Append(wxID_OPEN, L"&Открыть\tCtrl+O");
+        fileMenu->Append(wxID_SAVEAS, L"&Сохранить как\tCtrl+Shift+S");
 
         fileMenu->AppendSeparator();
 
@@ -52,15 +63,34 @@ namespace YetAnotherNotepad {
     }
 
     void MainFrame::OnFileNew(wxCommandEvent &event) {
-
-
-
         m_textCtrl->Clear();
-        SetTitle("Test 123456");
+        SetTitle("YAN");
     }
 
     void MainFrame::OnFileOpen(wxCommandEvent &event) {
+        wxFileDialog openFileDialog(this, _(L"Open File"), "", "",
+                               "all files (*.*)|*.*",
+                               wxFD_OPEN|wxFD_FILE_MUST_EXIST);
 
+        if (openFileDialog.ShowModal() == wxID_CANCEL) return;
+
+        wxString path = openFileDialog.GetPath();
+
+        wxFile file;
+        if (!file.Open(path, wxFile::read)) {
+            wxMessageBox(L"Не удалось загрузить файл", L"Ошибка", wxICON_ERROR);
+            return;
+        }
+
+        wxString content;
+        file.ReadAll(&content);
+        file.Close();
+
+        m_textCtrl->AppendText(content);
+    }
+
+    void MainFrame::OnFileSaveAs(wxCommandEvent &event) {
+        
     }
 
     void MainFrame::OnExit(wxCommandEvent &event) {
