@@ -1,7 +1,7 @@
 //
 // Created by developer on 7/16/25.
 //
-#pragma once
+
 #ifndef FILESEXCEPTIONS_H
 #define FILESEXCEPTIONS_H
 #include <exception>
@@ -11,14 +11,14 @@
 
 namespace YetAnotherNotepad::Files {
 
-    class FileDoesNotExistException final : YANException {
+    class FileDoesNotExistException final : public YANException {
     public:
         explicit FileDoesNotExistException(const std::string &message)
             : YANException(message) {
         }
     };
 
-    class FilePremissionDeniedException final : YANException {
+    class FilePremissionDeniedException final : public YANException {
     public:
         explicit FilePremissionDeniedException(const std::string &message)
             : YANException(message) {

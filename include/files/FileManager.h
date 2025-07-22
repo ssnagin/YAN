@@ -20,7 +20,7 @@ namespace YetAnotherNotepad::Files {
 
     protected:
         virtual void setCurrentFile(FileInfo &file_info);
-        virtual FileInfo* getCurrentFile();
+        virtual FileInfo& getCurrentFile();
     };
 
 }

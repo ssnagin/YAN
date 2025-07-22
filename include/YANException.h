@@ -20,7 +20,7 @@ namespace YetAnotherNotepad {
             return message_.c_str();
         }
 
-        const std::string& getMessage() const { return message_; }
+        [[nodiscard]] const std::string& getMessage() const { return message_; }
     };
 }
 

@@ -1,22 +1,19 @@
-
-#pragma once;
-#include "../../../include/files/factories/FileInfoFactory.h"
 #include <wx/filename.h>
+#include "../../../include/files/factories/FileInfoFactory.h"
 
 #include "../../../include/files/exceptions/FilesExceptions.h"
 //
 // Created by developer on 7/16/25.
 //
 namespace YetAnotherNotepad::Files {
-    FileInfo* FileInfoFactory::create(wxFileDialog wx_file_dialog)
-    throw(FileDoesNotExistException, FilePremissionDeniedException) {
+    FileInfo FileInfoFactory::create(wxFileDialog& wx_file_dialog) {
 
         wxFileName file(wx_file_dialog.GetPath());
 
-        if (!file.FileExists())
+        if (!file.FileExists()) // Здесь крашится
             throw FileDoesNotExistException("File does not exist or cannot be accessed!");
 
-        return new FileInfo(
+        return FileInfo(
             std::string(file.GetName()),
             std::string(file.GetPath()),
             std::string(file.GetAbsolutePath()),

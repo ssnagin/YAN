@@ -35,7 +35,7 @@ namespace YetAnotherNotepad::Files {
                 throw std::invalid_argument("Invalid filesize");
         }
 
-        FileInfo(); // idk but this should be deleted in da future
+        FileInfo() = default;// idk but this should be deleted in da future
 
         [[nodiscard]] const std::string& filename() const noexcept { return filename_; }
         [[nodiscard]] const std::string& path() const noexcept { return path_; }
