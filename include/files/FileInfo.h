@@ -7,6 +7,8 @@
 #include <cstdint>
 #include <filesystem>
 
+#include "FileContent.h"
+
 namespace YetAnotherNotepad::Files {
 
     class FileInfo {
@@ -16,6 +18,8 @@ namespace YetAnotherNotepad::Files {
         std::string absPath_ = "";
         std::string extension_ = "";
         uint64_t filesize_ = 0L;
+
+        FileContent fileContent_ {};
 
     public:
         FileInfo(
@@ -42,5 +46,6 @@ namespace YetAnotherNotepad::Files {
         [[nodiscard]] const std::string& absPath() const noexcept { return absPath_; }
         [[nodiscard]] const std::string& extension() const noexcept { return extension_; }
         [[nodiscard]] uint64_t filesize() const noexcept { return filesize_; }
+        [[nodiscard]] FileContent fileContent() const noexcept {return fileContent_;}
     };
 }

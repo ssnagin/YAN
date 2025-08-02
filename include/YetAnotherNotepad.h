@@ -5,10 +5,13 @@
 #pragma once
 #include <wx/wx.h>
 
+#include "files/FileInfo.h"
+
 namespace YetAnotherNotepad {
 
     class YetAnotherNotepad : public wxApp {
     public:
+
         virtual bool OnInit() override;
         virtual int OnExit() override;
     };

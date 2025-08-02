@@ -9,6 +9,7 @@
 
 #include "../../../include/gui/frames/MainFrame.h"
 
+#include "../../../include/YetAnotherNotepad.h"
 #include "../../../include/files/FileInfo.h"
 #include "../../../include/files/FileManager.h"
 #include "../../../include/files/exceptions/FilesExceptions.h"
@@ -16,7 +17,8 @@
 
 namespace YetAnotherNotepad::GUI::Frames {
 
-    std::unique_ptr<Files::FileManager> fileManager = std::make_unique<Files::FileManager>();
+    // std::unique_ptr<Files::FileManager> fileManager = std::make_unique<Files::FileManager>();
+    Files::FileManager& fileManager = Files::FileManager::instance();
 
     auto* fileInfoFactory = new Files::FileInfoFactory();
 
@@ -62,6 +64,7 @@ namespace YetAnotherNotepad::GUI::Frames {
     void MainFrame::BindEvents() {
         Bind(wxEVT_MENU, &MainFrame::OnFileNew, this, wxID_NEW);
         Bind(wxEVT_MENU, &MainFrame::OnFileOpen, this, wxID_OPEN);
+        Bind(wxEVT_MENU, &MainFrame::OnFileSaveAs, this, wxID_SAVEAS);
         Bind(wxEVT_MENU, &MainFrame::OnExit, this, wxID_EXIT);
     }
 
@@ -81,9 +84,11 @@ namespace YetAnotherNotepad::GUI::Frames {
         if (openFileDialog.ShowModal() == wxID_CANCEL) return;
 
         try {
-            Files::FileInfo file_info = Files::FileInfoFactory::create(openFileDialog);
 
-            result = fileManager->readFile(file_info);
+            Files::FileInfo file_info = Files::FileInfoFactory::create(openFileDialog);
+            result = fileManager.readFile(file_info);
+
+            m_textCtrl->Clear();
             m_textCtrl->AppendText(result);
 
         } catch (const Files::FilePremissionDeniedException& exception) {
@@ -93,12 +98,21 @@ namespace YetAnotherNotepad::GUI::Frames {
             wxString exceptionMessage(exception.getMessage().c_str(), wxConvUTF8);
             wxMessageBox(exceptionMessage, L"Ошибка", wxICON_ERROR);
         } catch (std::exception e) {
-            wxMessageBox(e.what(), "UNHANDLED EXCEPTION", wxICON_ERROR);
+            wxMessageBox(e.what(), L"UNHANDLED EXCEPTION", wxICON_ERROR);
         }
     }
 
     void MainFrame::OnFileSaveAs(wxCommandEvent &event) {
+        wxFileDialog openFileDialog(this, _(L"Save As"), "", "", "all files (*.*)|*.*",
+            wxFD_SAVE);
 
+        if (openFileDialog.ShowModal() == wxID_CANCEL) return;
+
+        try {
+
+        } catch (std::exception e) {
+
+        }
     }
 
     void MainFrame::OnExit(wxCommandEvent &event) {

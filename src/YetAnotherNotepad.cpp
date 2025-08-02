@@ -4,7 +4,7 @@
 #include "../include/gui/frames/MainFrame.h"
 
 namespace YetAnotherNotepad {
-    
+
     bool YetAnotherNotepad::OnInit() {
 
         YetAnotherNotepad:GUI:Frames:

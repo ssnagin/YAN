@@ -22,6 +22,8 @@ add_executable(${PROJECT_NAME} src/YetAnotherNotepad.cpp
         src/YANException.cpp
         include/files/factories/FileInfoFactory.h
         src/files/factories/FileInfoFactory.cpp
+        include/files/FileContent.h
+        src/files/FileContent.cpp
 )
 
 target_compile_options(YAN PRIVATE ${WX_CXX_FLAGS})

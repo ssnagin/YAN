@@ -8,10 +8,16 @@
 namespace YetAnotherNotepad::Files {
 
     class FileManager {
-    private:
-        FileInfo current_file_info_;
+
     public:
+        FileInfo current_file_info = FileInfo();
+        FileContent current_file_content = FileContent();
+
+        static FileManager& instance() {static FileManager s; return s;}
+
         FileManager() = default;
+        FileManager(FileManager const&) = delete;
+        FileManager& operator=(FileManager const&) = delete;
 
         virtual std::string readFile(FileInfo &file_info);
         virtual std::string readFile();
@@ -21,6 +27,9 @@ namespace YetAnotherNotepad::Files {
     protected:
         virtual void setCurrentFile(FileInfo &file_info);
         virtual FileInfo& getCurrentFile();
+
+        virtual void setCurrentFileContent(FileContent &file_content);
+        virtual FileContent& getCurrentFileContent();
     };
 
 }
