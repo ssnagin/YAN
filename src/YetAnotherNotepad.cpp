@@ -1,13 +1,15 @@
-#pragma once
-
 #include "../include/YetAnotherNotepad.h"
+
+#include "../include/files/FileManager.h"
 #include "../include/gui/frames/MainFrame.h"
 
 namespace YetAnotherNotepad {
 
     bool YetAnotherNotepad::OnInit() {
 
-        MainFrame* frame = new MainFrame("My Text Editor");
+        YetAnotherNotepad:GUI:Frames:
+            auto* frame = new GUI::Frames::MainFrame("YAN");
+
         frame->Show();
         return true;
     }
