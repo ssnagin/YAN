@@ -19,10 +19,13 @@ namespace YetAnotherNotepad::Files {
         FileManager(FileManager const&) = delete;
         FileManager& operator=(FileManager const&) = delete;
 
-        virtual std::string readFile(FileInfo &file_info);
-        virtual std::string readFile();
-        virtual void writeFile();
-        virtual void appendFile();
+        std::string readFile(FileInfo &file_info);
+        std::string readFile();
+
+        void writeFile();
+        void appendFile();
+
+        void newFile();
 
     protected:
         virtual void setCurrentFile(FileInfo &file_info);

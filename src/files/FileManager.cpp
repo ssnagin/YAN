@@ -25,6 +25,11 @@ namespace YetAnotherNotepad::Files {
         this->current_file_content = file_content;
     }
 
+    void FileManager::newFile() {
+        this->current_file_content = FileContent();
+        this->current_file_info = FileInfo();
+    }
+
 
     std::string FileManager::readFile(FileInfo& file_info) {
 
@@ -44,6 +49,19 @@ namespace YetAnotherNotepad::Files {
         return readFile(getCurrentFile());
     }
 
-    void FileManager::writeFile() {}
+    void FileManager::writeFile() {
+        std::ofstream file;
+
+        file.open(getCurrentFile().absPath(), std::ios::out);
+
+        // if (!file.is_open()) {
+        //     throw FilePremissionDeniedException("");
+        // }
+
+        file << this->current_file_content.get();
+
+        file.close();
+    }
+
     void FileManager::appendFile() {}
 }

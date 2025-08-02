@@ -10,8 +10,8 @@ namespace YetAnotherNotepad::Files {
 
         wxFileName file(wx_file_dialog.GetPath());
 
-        if (!file.FileExists()) // Здесь крашится
-            throw FileDoesNotExistException("File does not exist or cannot be accessed!");
+        // if (!file.FileExists()) // Здесь крашится
+        //     throw FileDoesNotExistException("File does not exist or cannot be accessed!");
 
         return FileInfo(
             std::string(file.GetName()),

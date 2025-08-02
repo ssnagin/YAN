@@ -69,7 +69,9 @@ namespace YetAnotherNotepad::GUI::Frames {
     }
 
     void MainFrame::OnFileNew(wxCommandEvent &event) {
+
         m_textCtrl->Clear();
+
         SetTitle("YAN");
     }
 
@@ -106,13 +108,25 @@ namespace YetAnotherNotepad::GUI::Frames {
         wxFileDialog openFileDialog(this, _(L"Save As"), "", "", "all files (*.*)|*.*",
             wxFD_SAVE);
 
+        openFileDialog.SetFilename(
+            fileManager.current_file_info.filename()
+            + "." + fileManager.current_file_info.extension()
+            );
+
         if (openFileDialog.ShowModal() == wxID_CANCEL) return;
 
-        try {
+        // try {
+            Files::FileInfo file_info = Files::FileInfoFactory::create(openFileDialog);
 
-        } catch (std::exception e) {
+            fileManager.current_file_content.set(std::string(m_textCtrl->GetValue()));
 
-        }
+            wxMessageBox(file_info.absPath(), "", wxICON_INFORMATION);
+
+            fileManager.writeFile();
+        //
+        // } catch (std::exception e) {
+        //
+        // }
     }
 
     void MainFrame::OnExit(wxCommandEvent &event) {
